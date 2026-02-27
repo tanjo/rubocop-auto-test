@@ -18,8 +18,8 @@ class HelloWorldApp
 
   private
 
-	def normalized_names
-		return ["World"] if @names.nil? || @names.empty?
+  def normalized_names
+    return ['World'] if @names.nil? || @names.empty?
 
     @names.map { |name| name.to_s.strip }.reject(&:empty?)
   end
