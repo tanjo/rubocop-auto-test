@@ -24,9 +24,9 @@ class HelloWorldApp
 		@names.map { |name| name.to_s.strip }.reject(&:empty?)
 	end
 
-	def build_message(list)
-		if list.size == 1 then "Hello, #{list.first}!" else "Hello, #{list.join(', ')}!" end
-	end
+  def build_message(list)
+    list.size == 1 ? "Hello, #{list.first}!" : "Hello, #{list.join(', ')}!"
+  end
 end
 
 input_names = ARGV
