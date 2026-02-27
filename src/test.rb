@@ -1,19 +1,20 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
 
-$x = 0
-
 class TestClass < Minitest::Test
-  def testSomething
-    a = [1, 2, 3]
-    assert_equal(3, a.size)
-    $x = a.size > 0 ? $x + 1 : 0
-    assert($x > 0)
+  def setup
+    @items = [1, 2, 3]
   end
 
+  def test_array_has_three_elements
+    assert_equal(3, @items.size)
+    assert_predicate(@items, :any?)
+  end
 
-  
-	def test_another_thing
-		foo = "abc"
-		assert_equal("abc", foo)
-	end
+  def test_string_value
+    value = 'abc'
+    assert_equal('abc', value)
+    assert_match(/\A[a-z]+\z/, value)
+  end
 end
