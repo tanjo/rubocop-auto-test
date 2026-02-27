@@ -33,4 +33,4 @@ jobs:
         uses: reviewdog/action-suggester@v1
         with:
           tool_name: "RuboCop Autofix"
-          filter_mode: added
+          filter_mode: diff_context
