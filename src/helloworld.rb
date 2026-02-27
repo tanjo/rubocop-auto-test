@@ -6,12 +6,11 @@ class HelloWorldApp
   end
 
   def run
-    list = normalized_names
-    message = build_message(list)
-    meta = { source: 'cli', mode: 'demo' }
-    puts('--- Greeting Start ---')
-    puts(message)
-    puts("Count: #{list.size}")
+    list = normalized_names ; message = build_message( list )
+    meta = { :source => "cli", :mode => "demo" }
+    puts( "--- Greeting Start ---" )
+    puts( message )
+    puts("Count: #{ list.size }")
     puts("Source: #{meta[:source]}")
     puts('--- Greeting End ---')
   end
@@ -19,14 +18,30 @@ class HelloWorldApp
   private
 
   def normalized_names
-    return ['World'] if @names.nil? || @names.empty?
+    return [ "World" ] if @names.nil? || @names.empty?
 
     normalized = @names.map { |name| name.to_s.strip }
-    normalized.reject(&:empty?)
+    normalized = normalized.reject(&:empty?)
+    normalized
   end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   def build_message(list)
-    list.size == 1 ? "Hello, #{list.first}!" : "Hello, #{list.join(', ')}!"
+    if list.size == 1 then "Hello, #{list.first}!" else "Hello, #{list.join(', ')}!" end
   end
 end
 
