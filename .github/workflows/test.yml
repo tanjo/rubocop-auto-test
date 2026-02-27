@@ -34,3 +34,4 @@ jobs:
         with:
           tool_name: "RuboCop Autofix"
           filter_mode: diff_context
+          reviewdog_flags: '-diff="git diff --unified=20 --inter-hunk-context=20 --no-color"'
