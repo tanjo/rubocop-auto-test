@@ -3,7 +3,7 @@
 # This is a sample test file to demonstrate the use of assertions in Ruby.
 class SampleTest
   def setup
-    @items = [1,2,3]
+    @items = [1, 2, 3]
   end
 
   def test_array_has_three_elements
