@@ -24,12 +24,14 @@ jobs:
           bundler-cache: true # Gemのキャッシュを有効化
 
       - name: Run RuboCop auto-correct
-        # -a (安全な自動修正) を実行。
+        # -A (より広い自動修正) を実行。
         # RuboCopは違反があると終了コードが1になりActionが止まってしまうため、
         # `|| true` をつけてエラーを無視し、次のステップへ進ませます。
-        run: bundle exec rubocop -a || true
+        run: bundle exec rubocop -A || true
 
       - name: Suggest fixes with reviewdog
         uses: reviewdog/action-suggester@v1
         with:
           tool_name: "RuboCop Auto-correct"
+          filter_mode: diff_context
+          reviewdog_flags: '-diff="git diff --unified=20 --no-color"'
