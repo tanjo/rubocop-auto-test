@@ -8,7 +8,6 @@ on:
 # reviewdog が PR にコメントを書き込むための権限
 permissions:
   contents: read
-  issues: write
   pull-requests: write
 
 jobs:
@@ -30,57 +29,8 @@ jobs:
         # `|| true` をつけてエラーを無視し、次のステップへ進ませます。
         run: bundle exec rubocop -A || true
 
-      - name: RuboCop差分を生成
-        run: git diff --no-color > rubocop.patch
-
-      - name: PRに差分コメントを投稿
-        uses: actions/github-script@v7
+      - name: Suggest fixes with reviewdog
+        uses: reviewdog/action-suggester@v1
         with:
-          script: |
-            const fs = require('fs')
-            const marker = '<!-- rubocop-autofix-patch -->'
-            const patchPath = 'rubocop.patch'
-            const patch = fs.existsSync(patchPath) ? fs.readFileSync(patchPath, 'utf8') : ''
-
-            if (!patch.trim()) {
-              core.info('RuboCopの自動修正差分はありませんでした。')
-              return
-            }
-
-            const maxLength = 60000
-            const truncated = patch.length > maxLength
-            const patchBody = truncated ? `${patch.slice(0, maxLength)}\n\n...（長いため省略）` : patch
-
-            const body = `${marker}\n### RuboCop自動修正パッチ（1コメント集約）\n\n\`\`\`diff\n${patchBody}\n\`\`\``
-
-            const { owner, repo } = context.repo
-            const issue_number = context.issue.number
-
-            const comments = await github.paginate(github.rest.issues.listComments, {
-              owner,
-              repo,
-              issue_number,
-              per_page: 100
-            })
-
-            const previous = comments.find((comment) =>
-              comment.user.type === 'Bot' && comment.body && comment.body.includes(marker)
-            )
-
-            if (previous) {
-              await github.rest.issues.updateComment({
-                owner,
-                repo,
-                comment_id: previous.id,
-                body
-              })
-              core.info('既存のRuboCop差分コメントを更新しました。')
-            } else {
-              await github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number,
-                body
-              })
-              core.info('RuboCop差分コメントを新規作成しました。')
-            }
+          tool_name: "RuboCop Autofix"
+          filter_mode: added
