@@ -1,8 +1,8 @@
-name: RuboCop Suggestion
+name: reviewdog
 
 on:
   pull_request:
-    # PRの作成時とコードのプッシュ時に実行
+    branches: [master]
     types: [opened, synchronize, reopened]
 
 # reviewdog が PR にコメントを書き込むための権限
@@ -11,25 +11,19 @@ permissions:
   pull-requests: write
 
 jobs:
-  rubocop-suggestion:
+  rubocop:
+    name: runner / rubocop
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_ONLY: rubocop
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3' # プロジェクトのバージョンに合わせて変更してください
-          bundler-cache: true # Gemのキャッシュを有効化
-
-      - name: Run RuboCop auto-correct
-        # -a (安全な自動修正) を実行。
-        # RuboCopは違反があると終了コードが1になりActionが止まってしまうため、
-        # `|| true` をつけてエラーを無視し、次のステップへ進ませます。
-        run: bundle exec rubocop -a || true
-
-      - name: Suggest fixes with reviewdog
-        uses: reviewdog/action-suggester@v1
+          ruby-version: '4.0.1'
+          bundler-cache: true
+      - uses: reviewdog/action-rubocop@v2
         with:
-          tool_name: "RuboCop Auto-correct"
+          reporter: github-pr-review
+          skip_install: true
+          use_bundler: true
