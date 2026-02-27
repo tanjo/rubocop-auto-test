@@ -13,13 +13,7 @@ class HelloWorldApp
     puts('--- Greeting End ---')
   end
 
-
-
-
-
-
-
-          private
+  private
 
   def normalized_names
     return ['World'] if @names.nil? || @names.empty?
