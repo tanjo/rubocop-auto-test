@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class HelloWorldApp
-	def initialize(names)
-		@names = names
-	end
+  def initialize(names)
+    @names = names
+  end
 
   def run
     list = normalized_names
