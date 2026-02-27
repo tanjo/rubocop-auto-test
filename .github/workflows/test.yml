@@ -20,7 +20,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3' # プロジェクトのバージョンに合わせて変更してください
+          ruby-version: '4.0.1' # プロジェクトのバージョンに合わせて変更してください
           bundler-cache: true # Gemのキャッシュを有効化
 
       - name: Run RuboCop auto-correct
