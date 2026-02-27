@@ -7,7 +7,7 @@ class SampleTest
   end
 
   def test_array_has_three_elements
-    assert_equal( 3,@items.size )
+    assert_equal(3, @items.size)
     assert_predicate(@items, :any?)
   end
 
