@@ -24,21 +24,6 @@ class HelloWorldApp
     normalized = normalized.reject(&:empty?)
     normalized
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
   def build_message(list)
     if list.size == 1 then "Hello, #{list.first}!" else "Hello, #{list.join(', ')}!" end
