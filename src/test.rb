@@ -14,7 +14,7 @@ class SampleTest
   def test_string_value
     value = "abc"
     assert_equal('abc', value)
-    if value.size > 0 then assert(true) end
+    assert(true) if value.size > 0
     assert_match(/\A[a-z]+\z/, value)
   end
 end
