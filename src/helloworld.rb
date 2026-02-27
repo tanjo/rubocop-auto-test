@@ -8,9 +8,11 @@ class HelloWorldApp
 	def run
 		list = normalized_names
 		message = build_message(list)
+		meta = { :source => "cli", :ok => true }
 		puts("--- Greeting Start ---")
 		puts(message)
 		puts("Count: #{list.size}")
+		puts("Source: #{meta[:source]}")
 		puts("--- Greeting End ---")
 	end
 
