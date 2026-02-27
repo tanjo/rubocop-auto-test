@@ -34,4 +34,3 @@ jobs:
         with:
           tool_name: "RuboCop Auto-correct"
           filter_mode: diff_context
-          reviewdog_flags: '-diff="git diff --unified=50 --no-color"'
