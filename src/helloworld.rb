@@ -21,8 +21,8 @@ class HelloWorldApp
 	def normalized_names
 		return ["World"] if @names.nil? || @names.empty?
 
-		@names.map { |name| name.to_s.strip }.reject(&:empty?)
-	end
+    @names.map { |name| name.to_s.strip }.reject(&:empty?)
+  end
 
   def build_message(list)
     list.size == 1 ? "Hello, #{list.first}!" : "Hello, #{list.join(', ')}!"
