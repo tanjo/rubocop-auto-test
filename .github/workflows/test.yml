@@ -23,7 +23,7 @@ jobs:
           ruby-version: '4.0.1' # プロジェクトのバージョンに合わせて変更してください
           bundler-cache: true # Gemのキャッシュを有効化
 
-      - name: Run RuboCop auto-correct
+      - name: Run RuboCop autofix
         # -A (より広い自動修正) を実行。
         # RuboCopは違反があると終了コードが1になりActionが止まってしまうため、
         # `|| true` をつけてエラーを無視し、次のステップへ進ませます。
@@ -32,5 +32,5 @@ jobs:
       - name: Suggest fixes with reviewdog
         uses: reviewdog/action-suggester@v1
         with:
-          tool_name: "RuboCop Auto-correct"
+          tool_name: "RuboCop Autofix"
           filter_mode: diff_context
